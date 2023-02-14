@@ -121,12 +121,11 @@ class PhotoReferenceProvider extends ADiscoverableReferenceProvider implements I
 				$reference->setDescription($photoInfo['photographer'] ?? $this->l10n->t('Unknown photographer'));
 				$imageUrl = $this->urlGenerator->linkToRouteAbsolute(Application::APP_ID . '.pexels.getPhotoContent', ['photoId' => $photoId, 'size' => 'large']);
 				$reference->setImageUrl($imageUrl);
-				/*
+				$photoInfo['proxied_url'] = $imageUrl;
 				$reference->setRichObject(
 					self::RICH_OBJECT_TYPE,
 					$photoInfo
 				);
-				*/
 				return $reference;
 			}
 		}
