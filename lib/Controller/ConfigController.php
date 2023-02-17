@@ -14,17 +14,21 @@ namespace OCA\Tutorial4\Controller;
 use OCA\Tutorial4\AppInfo\Application;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\DataResponse;
+use OCP\IConfig;
 use OCP\IRequest;
 
 class ConfigController extends Controller {
 	private ?string $userId;
+	private IConfig $config;
 
 	public function __construct(string        $appName,
 								IRequest      $request,
+								IConfig $config,
 								?string       $userId)
 	{
 		parent::__construct($appName, $request);
 		$this->userId = $userId;
+		$this->config = $config;
 	}
 
 	/**

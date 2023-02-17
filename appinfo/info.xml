@@ -18,4 +18,8 @@
 	<dependencies>
         <nextcloud min-version="26" max-version="26"/>
     </dependencies>
+    <settings>
+        <admin>OCA\Tutorial4\Settings\Admin</admin>
+        <admin-section>OCA\Tutorial4\Settings\AdminSection</admin-section>
+    </settings>
 </info>

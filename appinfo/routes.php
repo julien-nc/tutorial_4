@@ -12,5 +12,6 @@
 return [
 	'routes' => [
 		['name' => 'pexels#getPhotoContent', 'url' => '/photos/{photoId}/{size}', 'verb' => 'GET'],
+		['name' => 'config#setAdminConfig', 'url' => '/admin-config', 'verb' => 'PUT'],
 	],
 ];
