@@ -95,6 +95,7 @@ export default {
 .pexels-photo-reference {
 	width: 100%;
 	padding: 12px;
+	white-space: normal;
 
 	.photo-wrapper {
 		width: 100%;

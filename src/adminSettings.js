@@ -9,9 +9,9 @@
  * @copyright Julien Veyssier 2023
  */
 
-import Vue from 'vue'
-import './vueBootstrap.js'
 import AdminSettings from './components/AdminSettings.vue'
+import Vue from 'vue'
+Vue.mixin({ methods: { t, n } })
 
 const VueSettings = Vue.extend(AdminSettings)
 new VueSettings().$mount('#tuto4_prefs')

@@ -14,7 +14,16 @@
 					v-model="state.api_key"
 					type="password"
 					:placeholder="t('tutorial_4', '...')"
-					@input="onInput">
+					@input="inputChanged = true">
+				<NcButton v-if="inputChanged"
+					type="primary"
+					@click="onSave">
+					<template #icon>
+						<NcLoadingIcon v-if="loading" />
+						<ArrowRightIcon v-else />
+					</template>
+					{{ t('tutorial_4', 'Save') }}
+				</NcButton>
 			</div>
 		</div>
 	</div>
@@ -22,13 +31,15 @@
 
 <script>
 import KeyIcon from 'vue-material-design-icons/Key.vue'
+import ArrowRightIcon from 'vue-material-design-icons/ArrowRight.vue'
 
 import PexelsIcon from './icons/PexelsIcon.vue'
 
+import NcLoadingIcon from '@nextcloud/vue/dist/Components/NcLoadingIcon.js'
+import NcButton from '@nextcloud/vue/dist/Components/NcButton.js'
 import { loadState } from '@nextcloud/initial-state'
 import { generateUrl } from '@nextcloud/router'
 import axios from '@nextcloud/axios'
-import { delay } from '../utils.js'
 import { showSuccess, showError } from '@nextcloud/dialogs'
 
 export default {
@@ -37,6 +48,9 @@ export default {
 	components: {
 		PexelsIcon,
 		KeyIcon,
+		NcButton,
+		NcLoadingIcon,
+		ArrowRightIcon,
 	},
 
 	props: [],
@@ -45,6 +59,7 @@ export default {
 		return {
 			state: loadState('tutorial_4', 'admin-config'),
 			loading: false,
+			inputChanged: false,
 		}
 	},
 
@@ -58,21 +73,20 @@ export default {
 	},
 
 	methods: {
-		onInput() {
-			this.loading = true
-			delay(() => {
-				this.saveOptions({
-					api_key: this.state.api_key,
-				})
-			}, 2000)()
+		onSave() {
+			this.saveOptions({
+				api_key: this.state.api_key,
+			})
 		},
 		saveOptions(values) {
+			this.loading = true
 			const req = {
 				values,
 			}
 			const url = generateUrl('/apps/tutorial_4/admin-config')
 			axios.put(url, req).then((response) => {
 				showSuccess(t('tutorial_4', 'Pexels options saved'))
+				this.inputChanged = false
 			}).catch((error) => {
 				showError(
 					t('tutorial_4', 'Failed to save Pexels options')

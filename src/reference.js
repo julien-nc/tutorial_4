@@ -20,14 +20,11 @@
  */
 
 import { registerWidget } from '@nextcloud/vue-richtext'
+import PhotoReferenceWidget from './views/PhotoReferenceWidget.vue'
+import Vue from 'vue'
+Vue.mixin({ methods: { t, n } })
 
-__webpack_nonce__ = btoa(OC.requestToken) // eslint-disable-line
-__webpack_public_path__ = OC.linkTo('tutorial_4', 'js/') // eslint-disable-line
-
-registerWidget('tutorial_4_photo', async (el, { richObjectType, richObject, accessible }) => {
-	const { default: Vue } = await import(/* webpackChunkName: "reference-lazy" */'vue')
-	Vue.mixin({ methods: { t, n } })
-	const { default: PhotoReferenceWidget } = await import(/* webpackChunkName: "reference-lazy" */'./views/PhotoReferenceWidget.vue')
+registerWidget('tutorial_4_photo', (el, { richObjectType, richObject, accessible }) => {
 	const Widget = Vue.extend(PhotoReferenceWidget)
 	new Widget({
 		propsData: {
